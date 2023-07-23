@@ -28,12 +28,11 @@ public class ComboServiceImpl implements ComboService {
     @Autowired
     private ComboConverter comboConverter;
     @Override
-    public ResponseEntity<?> createCombo(ComboCreateDTO comboCreateDTO, BindingResult bindingResult) {
-        BindingResultUtils.bindResult(bindingResult);
+    public ComboResponseDTO createCombo(ComboCreateDTO comboCreateDTO) {
         Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findById(comboCreateDTO.getCategoryId());
         if(optionalCategoryEntity.isPresent()){
             ComboEntity comboEntity=comboConverter.converDTOToEntity(comboCreateDTO);
-            return ResponseEntity.ok(comboConverter.convertEntityToDTO(comboRepository.save(comboEntity)));
+            return comboConverter.convertEntityToDTO(comboRepository.save(comboEntity));
         }
         else {
             throw new AlreadyExistsException("Category doesn't exists with id = " + comboCreateDTO.getCategoryId());
@@ -41,13 +40,13 @@ public class ComboServiceImpl implements ComboService {
     }
 
     @Override
-    public ResponseEntity<?> findOne(Long id) {
+    public ComboResponseDTO findOne(Long id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(comboConverter.converListEntityToListDTO(comboRepository.findAll()));
+    public  List<ComboResponseDTO> findAll() {
+        return comboConverter.converListEntityToListDTO(comboRepository.findAll());
     }
 
     @Override

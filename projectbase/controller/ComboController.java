@@ -2,13 +2,11 @@ package com.example.projectbase.controller;
 
 import com.example.projectbase.domain.dto.request.ComboCreateDTO;
 import com.example.projectbase.domain.dto.request.ComboDetailCreateDTO;
-import com.example.projectbase.domain.dto.request.ProductCreateDTO;
 import com.example.projectbase.service.ComboDetailService;
 import com.example.projectbase.service.ComboService;
 import com.example.projectbase.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,12 +21,12 @@ public class ComboController {
     @Autowired
     private ComboDetailService comboDetailService;
     @PostMapping("/create")
-    public ResponseEntity<?> create(@Valid @ModelAttribute ComboCreateDTO comboCreateDTO, BindingResult bindingResult){
-        return comboService.createCombo(comboCreateDTO,bindingResult);
+    public ResponseEntity<?> create(@Valid @ModelAttribute ComboCreateDTO comboCreateDTO){
+        return ResponseEntity.ok(comboService.createCombo(comboCreateDTO));
     }
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll(){
-        return comboService.findAll();
+        return ResponseEntity.ok(comboService.findAll());
     }
     @GetMapping("/findByCategory/{category_id}")
     public ResponseEntity<?> findByCategoryId(@PathVariable Long category_id){

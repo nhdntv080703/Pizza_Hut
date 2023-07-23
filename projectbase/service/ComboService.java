@@ -10,9 +10,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface ComboService {
-    ResponseEntity<?> createCombo(@Valid ComboCreateDTO comboCreateDTO, BindingResult bindingResult);
-    ResponseEntity<?> findOne(Long id);
-    ResponseEntity<?> findAll();
+    ComboResponseDTO createCombo( ComboCreateDTO comboCreateDTO);
+    ComboResponseDTO findOne(Long id);
+    List<ComboResponseDTO> findAll();
     void deleteCombo(Long id);
     List<ComboResponseDTO> findByCategoryId(Long category_id);
 
